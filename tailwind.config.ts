@@ -11,6 +11,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        night: "#0b0b10",
+        card: "#14141c",
+        accent: "#ff5a1f",
+        "accent-soft": "#ff8a50",
+      },
+      fontFamily: {
+        sans: ["var(--font-cairo)", "system-ui", "sans-serif"],
       },
     },
   },
