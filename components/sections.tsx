@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Counter, SkillBar, TypingText, useInView } from "./effects";
 import { useLang } from "./lang";
 
@@ -297,6 +298,63 @@ export function Services() {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function Portfolio() {
+  const { t } = useLang();
+  const [active, setActive] = useState(0);
+
+  const filtered =
+    active === 0
+      ? t.portfolio.items
+      : t.portfolio.items.filter((i) => i.category === t.portfolio.categories[active]);
+
+  return (
+    <section id="portfolio" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6">
+      <div className="mb-10 text-center">
+        <SectionLabel>{t.portfolio.label}</SectionLabel>
+        <h2 className="text-3xl font-extrabold text-white sm:text-4xl">{t.portfolio.title}</h2>
+      </div>
+
+      <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
+        {t.portfolio.categories.map((cat, i) => (
+          <button
+            key={cat}
+            onClick={() => setActive(i)}
+            className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+              active === i
+                ? "bg-accent text-white shadow-lg shadow-accent/30"
+                : "border border-white/15 text-zinc-300 hover:border-accent hover:text-accent"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filtered.map((item) => (
+          <div
+            key={item.title}
+            className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10"
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-night/80 px-4 text-center opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+              <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
+                {item.category}
+              </span>
+              <h3 className="text-lg font-bold text-white">{item.title}</h3>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

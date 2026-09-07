@@ -9,6 +9,7 @@ import {
   Footer,
   Hero,
   Marquee,
+  Portfolio,
   Resume,
   Services,
   Stats,
@@ -25,6 +26,7 @@ function Site() {
         <Stats items={t.stats} />
         <About />
         <Services />
+        <Portfolio />
         <Marquee />
         <Resume />
         <Stats

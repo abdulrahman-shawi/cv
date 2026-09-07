@@ -6,6 +6,7 @@ const ar = {
     home: "الرئيسية",
     about: "من أنا",
     services: "خدماتي",
+    portfolio: "أعمالي",
     resume: "السيرة الذاتية",
     blog: "المقالات",
     contact: "تواصل معي",
@@ -88,6 +89,43 @@ const ar = {
     ],
   },
   marquee: ["إبداع", "نمو", "تأثير", "استراتيجية", "علامة تجارية", "نتائج"],
+  portfolio: {
+    label: "معرض أعمالي",
+    title: "أحدث المشاريع",
+    categories: ["الكل", "حملات إعلانية", "سوشيال ميديا", "هوية بصرية"],
+    items: [
+      {
+        title: "حملة إطلاق منتج تقني",
+        category: "حملات إعلانية",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "هوية بصرية لمقهى محلي",
+        category: "هوية بصرية",
+        image: "https://images.unsplash.com/photo-1493421419110-74f4e85ba126?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "إدارة حسابات مطعم",
+        category: "سوشيال ميديا",
+        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "حملة إعلانات لمتجر إلكتروني",
+        category: "حملات إعلانية",
+        image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "محتوى إبداعي لعلامة أزياء",
+        category: "سوشيال ميديا",
+        image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "شعار وهوية شركة ناشئة",
+        category: "هوية بصرية",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop",
+      },
+    ],
+  },
   resume: {
     label: "مسيرتي",
     experienceTitle: "الخبرات العملية",
@@ -199,6 +237,7 @@ const de: Dict = {
     home: "Start",
     about: "Über mich",
     services: "Leistungen",
+    portfolio: "Portfolio",
     resume: "Lebenslauf",
     blog: "Blog",
     contact: "Kontakt",
@@ -281,6 +320,43 @@ const de: Dict = {
     ],
   },
   marquee: ["Kreativität", "Wachstum", "Wirkung", "Strategie", "Marke", "Ergebnisse"],
+  portfolio: {
+    label: "Mein Portfolio",
+    title: "Aktuelle Projekte",
+    categories: ["Alle", "Kampagnen", "Social Media", "Branding"],
+    items: [
+      {
+        title: "Launch-Kampagne für ein Tech-Produkt",
+        category: "Kampagnen",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "Corporate Design für ein Café",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1493421419110-74f4e85ba126?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "Social-Media-Betreuung für ein Restaurant",
+        category: "Social Media",
+        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "Werbekampagne für einen Online-Shop",
+        category: "Kampagnen",
+        image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "Kreativ-Content für eine Modemarke",
+        category: "Social Media",
+        image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=800&auto=format&fit=crop",
+      },
+      {
+        title: "Logo & Identität für ein Start-up",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop",
+      },
+    ],
+  },
   resume: {
     label: "Mein Werdegang",
     experienceTitle: "Berufserfahrung",
