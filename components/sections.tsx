@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Counter, SkillBar, TypingText, useInView } from "./effects";
 import { useLang } from "./lang";
+import type { HomeSharedData, SocialLink } from "@/lib/content-types";
 
 /* ---------- Icons ---------- */
 
@@ -107,6 +108,16 @@ const socials = [
 
 /* ---------- Sections ---------- */
 
+const DEFAULT_HERO_BG =
+  "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1920&auto=format&fit=crop";
+
+function mergedSocials(overrides?: SocialLink[]) {
+  return socials.map((s) => ({
+    ...s,
+    href: overrides?.find((o) => o.name === s.name)?.href ?? s.href,
+  }));
+}
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="mb-3 inline-block rounded-full border border-accent/30 bg-accent/10 px-4 py-1 text-sm font-semibold text-accent">
@@ -115,16 +126,16 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Hero() {
+export function Hero({ shared }: { shared?: HomeSharedData }) {
   const { t } = useLang();
+  const socialLinks = mergedSocials(shared?.socials);
 
   return (
     <section
       id="home"
       className="parallax-bg relative flex min-h-screen items-center overflow-hidden pt-16"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(11,11,16,0.82), rgba(11,11,16,0.88)), url(https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1920&auto=format&fit=crop)",
+        backgroundImage: `linear-gradient(rgba(11,11,16,0.82), rgba(11,11,16,0.88)), url(${shared?.backgroundImage ?? DEFAULT_HERO_BG})`,
       }}
     >
       <div className="pointer-events-none absolute -top-32 start-1/4 h-96 w-96 rounded-full bg-accent/20 blur-[120px]" />
@@ -158,7 +169,7 @@ export function Hero() {
           </div>
 
           <div className="flex items-center gap-3">
-            {socials.map((s) => (
+            {socialLinks.map((s) => (
               <a
                 key={s.name}
                 href={s.href}
@@ -589,8 +600,9 @@ export function Contact() {
   );
 }
 
-export function Footer() {
+export function Footer({ socials }: { socials?: SocialLink[] }) {
   const { t } = useLang();
+  const socialLinks = mergedSocials(socials);
   const year = new Date().getFullYear();
 
   return (
@@ -601,7 +613,7 @@ export function Footer() {
           <span className="text-accent">.</span>
         </a>
         <div className="flex items-center gap-3">
-          {socials.map((s) => (
+          {socialLinks.map((s) => (
             <a
               key={s.name}
               href={s.href}

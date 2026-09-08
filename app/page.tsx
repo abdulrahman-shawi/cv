@@ -1,50 +1,9 @@
-"use client";
+import { getHomeContent } from "@/lib/content";
+import { HomePage } from "@/components/site";
 
-import { Header } from "@/components/header";
-import { LangProvider, useLang } from "@/components/lang";
-import {
-  About,
-  Blog,
-  Contact,
-  Footer,
-  Hero,
-  Marquee,
-  Portfolio,
-  Resume,
-  Services,
-  Stats,
-} from "@/components/sections";
+export const dynamic = "force-dynamic";
 
-function Site() {
-  const { t } = useLang();
-
-  return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Stats items={t.stats} />
-        <About />
-        <Services />
-        <Portfolio />
-        <Marquee />
-        <Resume />
-        <Stats
-          items={t.stats2}
-          image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920&auto=format&fit=crop"
-        />
-        <Blog />
-        <Contact />
-      </main>
-      <Footer />
-    </>
-  );
-}
-
-export default function Home() {
-  return (
-    <LangProvider>
-      <Site />
-    </LangProvider>
-  );
+export default async function Page() {
+  const content = await getHomeContent();
+  return <HomePage content={content} />;
 }
