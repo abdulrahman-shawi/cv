@@ -6,6 +6,7 @@ const navItems = [
   { href: "/admin", label: "لوحة التحكم" },
   { href: "/admin/home", label: "قسم الرئيسية" },
   { href: "/admin/about", label: "قسم من أنا" },
+  { href: "/admin/services", label: "قسم ماذا أقدم" },
 ];
 
 async function logout() {

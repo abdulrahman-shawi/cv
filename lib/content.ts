@@ -6,6 +6,8 @@ import type {
   HomeContent,
   HomeLangData,
   HomeSharedData,
+  ServicesContent,
+  ServicesLangData,
   SocialLink,
 } from "./content-types";
 
@@ -17,6 +19,9 @@ export type {
   HomeLangData,
   HomeSharedData,
   HomeStat,
+  ServiceItem,
+  ServicesContent,
+  ServicesLangData,
   SocialLink,
 } from "./content-types";
 
@@ -114,4 +119,23 @@ export function defaultAboutContent(): AboutContent {
 
 export function getAboutContent(): Promise<AboutContent> {
   return readSection("about", defaultAboutContent());
+}
+
+/* ---------- Services ---------- */
+
+function defaultServicesLangData(lang: Lang): ServicesLangData {
+  const d = dict[lang];
+  return {
+    label: d.services.label,
+    title: d.services.title,
+    items: d.services.items.map((s) => ({ ...s })),
+  };
+}
+
+export function defaultServicesContent(): ServicesContent {
+  return { ar: defaultServicesLangData("ar"), de: defaultServicesLangData("de") };
+}
+
+export function getServicesContent(): Promise<ServicesContent> {
+  return readSection("services", defaultServicesContent());
 }

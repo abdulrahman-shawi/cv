@@ -7,7 +7,7 @@ import type { HomeSharedData, SocialLink } from "@/lib/content-types";
 
 /* ---------- Icons ---------- */
 
-const icons: Record<string, React.ReactNode> = {
+export const icons: Record<string, React.ReactNode> = {
   target: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7">
       <circle cx="12" cy="12" r="9" />

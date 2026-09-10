@@ -38,3 +38,13 @@ export type AboutLangData = {
 };
 
 export type AboutContent = Record<Lang, AboutLangData>;
+
+export type ServiceItem = { icon: string; title: string; text: string };
+
+export type ServicesLangData = {
+  label: string;
+  title: string;
+  items: ServiceItem[];
+};
+
+export type ServicesContent = Record<Lang, ServicesLangData>;
