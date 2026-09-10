@@ -25,3 +25,16 @@ export type HomeSharedData = {
 };
 
 export type HomeContent = Record<Lang, HomeLangData> & { shared: HomeSharedData };
+
+export type AboutSkill = { name: string; percent: number };
+
+export type AboutLangData = {
+  label: string;
+  title: string;
+  bio: string;
+  skillsTitle: string;
+  skills: AboutSkill[];
+  quote: { text: string; author: string };
+};
+
+export type AboutContent = Record<Lang, AboutLangData>;

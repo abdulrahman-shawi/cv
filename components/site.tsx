@@ -14,12 +14,16 @@ import {
   Services,
   Stats,
 } from "@/components/sections";
-import type { HomeContent, HomeSharedData } from "@/lib/content-types";
+import type { AboutContent, HomeContent, HomeSharedData } from "@/lib/content-types";
 import type { Dict, Lang } from "@/lib/i18n";
 
-function buildOverrides(content: HomeContent): Partial<Record<Lang, Partial<Dict>>> {
+function buildOverrides(
+  home: HomeContent,
+  about: AboutContent
+): Partial<Record<Lang, Partial<Dict>>> {
   const perLang = (lang: Lang): Partial<Dict> => {
-    const h = content[lang];
+    const h = home[lang];
+    const a = about[lang];
     return {
       hero: {
         greeting: h.greeting,
@@ -32,6 +36,14 @@ function buildOverrides(content: HomeContent): Partial<Record<Lang, Partial<Dict
         scroll: h.scroll,
       },
       stats: h.stats,
+      about: {
+        label: a.label,
+        title: a.title,
+        bio: a.bio,
+        skillsTitle: a.skillsTitle,
+        skills: a.skills,
+      },
+      quote: a.quote,
     };
   };
   return { ar: perLang("ar"), de: perLang("de") };
@@ -63,10 +75,10 @@ function Site({ shared }: { shared: HomeSharedData }) {
   );
 }
 
-export function HomePage({ content }: { content: HomeContent }) {
+export function HomePage({ home, about }: { home: HomeContent; about: AboutContent }) {
   return (
-    <LangProvider overrides={buildOverrides(content)}>
-      <Site shared={content.shared} />
+    <LangProvider overrides={buildOverrides(home, about)}>
+      <Site shared={home.shared} />
     </LangProvider>
   );
 }

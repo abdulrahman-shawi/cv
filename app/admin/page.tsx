@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const sections = [
   { key: "home", label: "قسم الرئيسية", description: "النص الترحيبي، الاسم، الأدوار، الإحصائيات، وصورة الخلفية", href: "/admin/home", ready: true },
-  { key: "about", label: "من أنا", description: "النبذة والمهارات", href: "#", ready: false },
+  { key: "about", label: "من أنا", description: "النبذة والمهارات والاقتباس", href: "/admin/about", ready: true },
   { key: "services", label: "خدماتي", description: "بطاقات الخدمات", href: "#", ready: false },
   { key: "portfolio", label: "أعمالي", description: "معرض المشاريع", href: "#", ready: false },
   { key: "resume", label: "السيرة الذاتية", description: "الخبرات والتعليم والشهادات", href: "#", ready: false },

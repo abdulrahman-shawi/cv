@@ -1,8 +1,61 @@
 import { prisma } from "./db";
 import { dict, type Lang } from "./i18n";
-import type { HomeContent, HomeLangData, HomeSharedData, SocialLink } from "./content-types";
+import type {
+  AboutContent,
+  AboutLangData,
+  HomeContent,
+  HomeLangData,
+  HomeSharedData,
+  SocialLink,
+} from "./content-types";
 
-export type { HomeContent, HomeLangData, HomeSharedData, HomeStat, SocialLink } from "./content-types";
+export type {
+  AboutContent,
+  AboutLangData,
+  AboutSkill,
+  HomeContent,
+  HomeLangData,
+  HomeSharedData,
+  HomeStat,
+  SocialLink,
+} from "./content-types";
+
+async function readSection<T extends Record<string, unknown>>(
+  section: string,
+  defaults: T
+): Promise<T> {
+  try {
+    const rows = await prisma.sectionContent.findMany({ where: { section } });
+    const content = { ...defaults };
+    for (const row of rows) {
+      if (row.lang in content) {
+        const key = row.lang as keyof T;
+        content[key] = {
+          ...(content[key] as object),
+          ...(row.data as object),
+        } as T[keyof T];
+      }
+    }
+    return content;
+  } catch {
+    return defaults;
+  }
+}
+
+export async function upsertSectionContent(
+  section: string,
+  entries: readonly { lang: string; data: unknown }[]
+) {
+  for (const entry of entries) {
+    await prisma.sectionContent.upsert({
+      where: { section_lang: { section, lang: entry.lang } },
+      create: { section, lang: entry.lang, data: entry.data as object },
+      update: { data: entry.data as object },
+    });
+  }
+}
+
+/* ---------- Home ---------- */
 
 const DEFAULT_BACKGROUND =
   "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1920&auto=format&fit=crop";
@@ -14,7 +67,7 @@ const DEFAULT_SOCIALS: SocialLink[] = [
   { name: "Facebook", href: "https://facebook.com" },
 ];
 
-function defaultLangData(lang: Lang): HomeLangData {
+function defaultHomeLangData(lang: Lang): HomeLangData {
   const d = dict[lang];
   return {
     greeting: d.hero.greeting,
@@ -31,27 +84,34 @@ function defaultLangData(lang: Lang): HomeLangData {
 
 export function defaultHomeContent(): HomeContent {
   return {
-    ar: defaultLangData("ar"),
-    de: defaultLangData("de"),
+    ar: defaultHomeLangData("ar"),
+    de: defaultHomeLangData("de"),
     shared: { backgroundImage: DEFAULT_BACKGROUND, profileImage: "", socials: DEFAULT_SOCIALS },
   };
 }
 
-export async function getHomeContent(): Promise<HomeContent> {
-  const fallback = defaultHomeContent();
-  try {
-    const rows = await prisma.sectionContent.findMany({ where: { section: "home" } });
-    const content = defaultHomeContent();
-    for (const row of rows) {
-      const data = row.data as Record<string, unknown>;
-      if (row.lang === "shared") {
-        content.shared = { ...content.shared, ...(data as Partial<HomeSharedData>) };
-      } else if (row.lang === "ar" || row.lang === "de") {
-        content[row.lang] = { ...content[row.lang], ...(data as Partial<HomeLangData>) };
-      }
-    }
-    return content;
-  } catch {
-    return fallback;
-  }
+export function getHomeContent(): Promise<HomeContent> {
+  return readSection("home", defaultHomeContent());
+}
+
+/* ---------- About ---------- */
+
+function defaultAboutLangData(lang: Lang): AboutLangData {
+  const d = dict[lang];
+  return {
+    label: d.about.label,
+    title: d.about.title,
+    bio: d.about.bio,
+    skillsTitle: d.about.skillsTitle,
+    skills: d.about.skills.map((s) => ({ ...s })),
+    quote: { text: d.quote.text, author: d.quote.author },
+  };
+}
+
+export function defaultAboutContent(): AboutContent {
+  return { ar: defaultAboutLangData("ar"), de: defaultAboutLangData("de") };
+}
+
+export function getAboutContent(): Promise<AboutContent> {
+  return readSection("about", defaultAboutContent());
 }

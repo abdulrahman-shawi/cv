@@ -5,6 +5,7 @@ import { destroySession, verifySession } from "@/lib/auth";
 const navItems = [
   { href: "/admin", label: "لوحة التحكم" },
   { href: "/admin/home", label: "قسم الرئيسية" },
+  { href: "/admin/about", label: "قسم من أنا" },
 ];
 
 async function logout() {
