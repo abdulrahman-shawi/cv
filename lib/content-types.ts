@@ -48,3 +48,16 @@ export type ServicesLangData = {
 };
 
 export type ServicesContent = Record<Lang, ServicesLangData>;
+
+export type PortfolioItem = { title: string; category: string; image: string };
+
+export type PortfolioLangData = {
+  label: string;
+  title: string;
+  categories: string[];
+  items: PortfolioItem[];
+};
+
+export type PortfolioContent = Record<Lang, PortfolioLangData>;
+
+export type MarqueeContent = Record<Lang, string[]>;

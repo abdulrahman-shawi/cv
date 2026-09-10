@@ -6,6 +6,9 @@ import type {
   HomeContent,
   HomeLangData,
   HomeSharedData,
+  MarqueeContent,
+  PortfolioContent,
+  PortfolioLangData,
   ServicesContent,
   ServicesLangData,
   SocialLink,
@@ -19,6 +22,10 @@ export type {
   HomeLangData,
   HomeSharedData,
   HomeStat,
+  MarqueeContent,
+  PortfolioContent,
+  PortfolioItem,
+  PortfolioLangData,
   ServiceItem,
   ServicesContent,
   ServicesLangData,
@@ -35,10 +42,12 @@ async function readSection<T extends Record<string, unknown>>(
     for (const row of rows) {
       if (row.lang in content) {
         const key = row.lang as keyof T;
-        content[key] = {
-          ...(content[key] as object),
-          ...(row.data as object),
-        } as T[keyof T];
+        const current = content[key];
+        content[key] = (
+          Array.isArray(current)
+            ? row.data
+            : { ...(current as object), ...(row.data as object) }
+        ) as T[keyof T];
       }
     }
     return content;
@@ -138,4 +147,34 @@ export function defaultServicesContent(): ServicesContent {
 
 export function getServicesContent(): Promise<ServicesContent> {
   return readSection("services", defaultServicesContent());
+}
+
+/* ---------- Portfolio ---------- */
+
+function defaultPortfolioLangData(lang: Lang): PortfolioLangData {
+  const d = dict[lang];
+  return {
+    label: d.portfolio.label,
+    title: d.portfolio.title,
+    categories: [...d.portfolio.categories],
+    items: d.portfolio.items.map((i) => ({ ...i })),
+  };
+}
+
+export function defaultPortfolioContent(): PortfolioContent {
+  return { ar: defaultPortfolioLangData("ar"), de: defaultPortfolioLangData("de") };
+}
+
+export function getPortfolioContent(): Promise<PortfolioContent> {
+  return readSection("portfolio", defaultPortfolioContent());
+}
+
+/* ---------- Marquee ---------- */
+
+export function defaultMarqueeContent(): MarqueeContent {
+  return { ar: [...dict.ar.marquee], de: [...dict.de.marquee] };
+}
+
+export function getMarqueeContent(): Promise<MarqueeContent> {
+  return readSection("marquee", defaultMarqueeContent());
 }
