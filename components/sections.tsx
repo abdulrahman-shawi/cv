@@ -187,11 +187,19 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
         <div className="relative mx-auto hidden aspect-square w-full max-w-md lg:block">
           <div className="absolute inset-0 rounded-full border-2 border-dashed border-accent/40" />
           <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-card to-night ring-1 ring-white/10">
-            <div className="flex h-full w-full items-center justify-center">
-              <span className="bg-gradient-to-br from-accent to-accent-soft bg-clip-text text-[10rem] font-extrabold leading-none text-transparent">
-                {t.hero.name.charAt(0)}
-              </span>
-            </div>
+            {shared?.profileImage ? (
+              <img
+                src={shared.profileImage}
+                alt={t.hero.name}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <span className="bg-gradient-to-br from-accent to-accent-soft bg-clip-text text-[10rem] font-extrabold leading-none text-transparent">
+                  {t.hero.name.charAt(0)}
+                </span>
+              </div>
+            )}
           </div>
           <div className="absolute -end-2 top-10 rounded-2xl border border-white/10 bg-card/90 px-5 py-3 shadow-xl backdrop-blur">
             <p className="text-2xl font-extrabold text-accent">

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { verifySession } from "@/lib/auth";
+import { saveUpload, validateImageFile } from "@/lib/uploads";
 import type { HomeContent, HomeLangData } from "@/lib/content";
 
 export type SaveState = { ok?: boolean; error?: string };
@@ -47,5 +48,24 @@ export async function saveHomeContent(content: HomeContent): Promise<SaveState> 
     return { ok: true };
   } catch {
     return { error: "تعذّر الحفظ في قاعدة البيانات، حاول مجدداً" };
+  }
+}
+
+export type UploadState = { url?: string; error?: string };
+
+export async function uploadImage(formData: FormData): Promise<UploadState> {
+  if (!verifySession()) return { error: "انتهت الجلسة، سجّل الدخول من جديد" };
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) return { error: "لم يتم اختيار صورة" };
+
+  const validationError = validateImageFile(file);
+  if (validationError) return { error: validationError };
+
+  try {
+    const url = await saveUpload(file);
+    return { url };
+  } catch {
+    return { error: "تعذّر رفع الصورة، حاول مجدداً" };
   }
 }

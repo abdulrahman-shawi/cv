@@ -20,6 +20,7 @@ export type SocialLink = { name: string; href: string };
 
 export type HomeSharedData = {
   backgroundImage: string;
+  profileImage: string;
   socials: SocialLink[];
 };
 

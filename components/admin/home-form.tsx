@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import type { HomeContent, HomeLangData, Lang } from "@/lib/content-types";
-import { saveHomeContent } from "@/app/admin/home/actions";
+import { saveHomeContent, uploadImage } from "@/app/admin/home/actions";
 
 const inputCls =
   "w-full rounded-xl border border-white/10 bg-night px-4 py-2.5 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-accent";
@@ -125,6 +125,29 @@ export function HomeForm({ initial }: { initial: HomeContent }) {
   const [tab, setTab] = useState<Lang>("ar");
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
   const [pending, startTransition] = useTransition();
+  const [uploading, setUploading] = useState(false);
+
+  const onPickImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+
+    setMessage(null);
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const result = await uploadImage(fd);
+      if (result.url) {
+        setContent({ ...content, shared: { ...content.shared, profileImage: result.url } });
+        setMessage({ ok: true, text: "تم رفع الصورة — لا تنسَ الضغط على «حفظ التغييرات»" });
+      } else {
+        setMessage({ ok: false, text: result.error ?? "تعذّر رفع الصورة" });
+      }
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const save = () => {
     setMessage(null);
@@ -168,6 +191,48 @@ export function HomeForm({ initial }: { initial: HomeContent }) {
       <div className="rounded-2xl border border-white/10 bg-card p-6">
         <h2 className="mb-6 text-lg font-bold text-white">إعدادات مشتركة</h2>
         <div className="space-y-5">
+          <Field label="الصورة الشخصية (تظهر في الدائرة بدل الحرف الأول من الاسم)">
+            <div className="flex items-center gap-5">
+              {content.shared.profileImage ? (
+                <img
+                  src={content.shared.profileImage}
+                  alt="الصورة الشخصية"
+                  className="h-20 w-20 shrink-0 rounded-full object-cover ring-1 ring-white/10"
+                />
+              ) : (
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-night text-3xl font-extrabold text-accent ring-1 ring-white/10">
+                  {content.ar.name.charAt(0) || "؟"}
+                </div>
+              )}
+              <div className="flex flex-wrap items-center gap-3">
+                <label
+                  className={`cursor-pointer rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-accent-soft ${uploading ? "opacity-60" : ""}`}
+                >
+                  {uploading ? "جارٍ الرفع..." : "رفع صورة"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/avif"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={onPickImage}
+                  />
+                </label>
+                {content.shared.profileImage && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setContent({ ...content, shared: { ...content.shared, profileImage: "" } })
+                    }
+                    className="rounded-xl border border-red-500/30 px-5 py-2.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10"
+                  >
+                    إزالة الصورة
+                  </button>
+                )}
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-zinc-500">jpg أو png أو webp — بحد أقصى 5MB</p>
+          </Field>
+
           <Field label="رابط صورة الخلفية">
             <input
               dir="ltr"

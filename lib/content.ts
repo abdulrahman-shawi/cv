@@ -33,7 +33,7 @@ export function defaultHomeContent(): HomeContent {
   return {
     ar: defaultLangData("ar"),
     de: defaultLangData("de"),
-    shared: { backgroundImage: DEFAULT_BACKGROUND, socials: DEFAULT_SOCIALS },
+    shared: { backgroundImage: DEFAULT_BACKGROUND, profileImage: "", socials: DEFAULT_SOCIALS },
   };
 }
 
