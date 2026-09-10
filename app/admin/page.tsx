@@ -6,7 +6,8 @@ const sections = [
   { key: "services", label: "خدماتي", description: "بطاقات الخدمات", href: "/admin/services", ready: true },
   { key: "portfolio", label: "أعمالي", description: "معرض المشاريع", href: "/admin/portfolio", ready: true },
   { key: "marquee", label: "الكلمات المتحركة", description: "الشريط المتحرك بين الأقسام", href: "/admin/marquee", ready: true },
-  { key: "resume", label: "السيرة الذاتية", description: "الخبرات والتعليم والشهادات", href: "#", ready: false },
+  { key: "resume", label: "السيرة الذاتية", description: "الخبرات العملية والتعليم", href: "/admin/resume", ready: true },
+  { key: "certificates", label: "شهاداتي", description: "بطاقات الشهادات وصورها", href: "/admin/certificates", ready: true },
   { key: "blog", label: "المقالات", description: "منشورات المدونة", href: "#", ready: false },
   { key: "contact", label: "تواصل معي", description: "بيانات التواصل", href: "#", ready: false },
 ];

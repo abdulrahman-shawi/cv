@@ -9,6 +9,8 @@ const navItems = [
   { href: "/admin/services", label: "قسم ماذا أقدم" },
   { href: "/admin/portfolio", label: "معرض أعمالي" },
   { href: "/admin/marquee", label: "الكلمات المتحركة" },
+  { href: "/admin/resume", label: "مسيرتي" },
+  { href: "/admin/certificates", label: "شهاداتي" },
 ];
 
 async function logout() {

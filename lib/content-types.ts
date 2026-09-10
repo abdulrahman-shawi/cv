@@ -61,3 +61,24 @@ export type PortfolioLangData = {
 export type PortfolioContent = Record<Lang, PortfolioLangData>;
 
 export type MarqueeContent = Record<Lang, string[]>;
+
+export type TimelineItem = { period: string; title: string; place: string; text: string };
+
+export type ResumeLangData = {
+  label: string;
+  experienceTitle: string;
+  educationTitle: string;
+  experience: TimelineItem[];
+  education: TimelineItem[];
+};
+
+export type ResumeContent = Record<Lang, ResumeLangData>;
+
+export type CertificateItem = { title: string; issuer: string; year: string; image: string };
+
+export type CertificatesLangData = {
+  title: string;
+  items: CertificateItem[];
+};
+
+export type CertificatesContent = Record<Lang, CertificatesLangData>;

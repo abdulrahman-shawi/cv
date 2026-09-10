@@ -3,12 +3,16 @@ import { dict, type Lang } from "./i18n";
 import type {
   AboutContent,
   AboutLangData,
+  CertificatesContent,
+  CertificatesLangData,
   HomeContent,
   HomeLangData,
   HomeSharedData,
   MarqueeContent,
   PortfolioContent,
   PortfolioLangData,
+  ResumeContent,
+  ResumeLangData,
   ServicesContent,
   ServicesLangData,
   SocialLink,
@@ -18,6 +22,9 @@ export type {
   AboutContent,
   AboutLangData,
   AboutSkill,
+  CertificateItem,
+  CertificatesContent,
+  CertificatesLangData,
   HomeContent,
   HomeLangData,
   HomeSharedData,
@@ -26,10 +33,13 @@ export type {
   PortfolioContent,
   PortfolioItem,
   PortfolioLangData,
+  ResumeContent,
+  ResumeLangData,
   ServiceItem,
   ServicesContent,
   ServicesLangData,
   SocialLink,
+  TimelineItem,
 } from "./content-types";
 
 async function readSection<T extends Record<string, unknown>>(
@@ -177,4 +187,43 @@ export function defaultMarqueeContent(): MarqueeContent {
 
 export function getMarqueeContent(): Promise<MarqueeContent> {
   return readSection("marquee", defaultMarqueeContent());
+}
+
+/* ---------- Resume ---------- */
+
+function defaultResumeLangData(lang: Lang): ResumeLangData {
+  const d = dict[lang];
+  return {
+    label: d.resume.label,
+    experienceTitle: d.resume.experienceTitle,
+    educationTitle: d.resume.educationTitle,
+    experience: d.resume.experience.map((i) => ({ ...i })),
+    education: d.resume.education.map((i) => ({ ...i })),
+  };
+}
+
+export function defaultResumeContent(): ResumeContent {
+  return { ar: defaultResumeLangData("ar"), de: defaultResumeLangData("de") };
+}
+
+export function getResumeContent(): Promise<ResumeContent> {
+  return readSection("resume", defaultResumeContent());
+}
+
+/* ---------- Certificates ---------- */
+
+function defaultCertificatesLangData(lang: Lang): CertificatesLangData {
+  const d = dict[lang];
+  return {
+    title: d.certificates.title,
+    items: d.certificates.items.map((i) => ({ ...i })),
+  };
+}
+
+export function defaultCertificatesContent(): CertificatesContent {
+  return { ar: defaultCertificatesLangData("ar"), de: defaultCertificatesLangData("de") };
+}
+
+export function getCertificatesContent(): Promise<CertificatesContent> {
+  return readSection("certificates", defaultCertificatesContent());
 }
