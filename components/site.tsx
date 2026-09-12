@@ -16,7 +16,9 @@ import {
 } from "@/components/sections";
 import type {
   AboutContent,
+  BlogContent,
   CertificatesContent,
+  ContactContent,
   HomeContent,
   HomeSharedData,
   MarqueeContent,
@@ -33,11 +35,14 @@ function buildOverrides(
   portfolio: PortfolioContent,
   marquee: MarqueeContent,
   resume: ResumeContent,
-  certificates: CertificatesContent
+  certificates: CertificatesContent,
+  blog: BlogContent,
+  contact: ContactContent
 ): Partial<Record<Lang, Partial<Dict>>> {
   const perLang = (lang: Lang): Partial<Dict> => {
     const h = home[lang];
     const a = about[lang];
+    const c = contact[lang];
     return {
       hero: {
         greeting: h.greeting,
@@ -63,6 +68,18 @@ function buildOverrides(
       marquee: marquee[lang],
       resume: resume[lang],
       certificates: certificates[lang],
+      blog: blog[lang],
+      contact: {
+        label: c.label,
+        title: c.title,
+        emailLabel: c.emailLabel,
+        email: contact.shared.email,
+        phoneLabel: c.phoneLabel,
+        phone: contact.shared.phone,
+        addressLabel: c.addressLabel,
+        address: contact.shared.address,
+        form: c.form,
+      },
     };
   };
   return { ar: perLang("ar"), de: perLang("de") };
@@ -102,6 +119,8 @@ export function HomePage({
   marquee,
   resume,
   certificates,
+  blog,
+  contact,
 }: {
   home: HomeContent;
   about: AboutContent;
@@ -110,10 +129,22 @@ export function HomePage({
   marquee: MarqueeContent;
   resume: ResumeContent;
   certificates: CertificatesContent;
+  blog: BlogContent;
+  contact: ContactContent;
 }) {
   return (
     <LangProvider
-      overrides={buildOverrides(home, about, services, portfolio, marquee, resume, certificates)}
+      overrides={buildOverrides(
+        home,
+        about,
+        services,
+        portfolio,
+        marquee,
+        resume,
+        certificates,
+        blog,
+        contact
+      )}
     >
       <Site shared={home.shared} />
     </LangProvider>

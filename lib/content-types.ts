@@ -82,3 +82,31 @@ export type CertificatesLangData = {
 };
 
 export type CertificatesContent = Record<Lang, CertificatesLangData>;
+
+export type BlogPost = { date: string; title: string; text: string };
+
+export type BlogLangData = {
+  label: string;
+  title: string;
+  readMore: string;
+  posts: BlogPost[];
+};
+
+export type BlogContent = Record<Lang, BlogLangData>;
+
+export type ContactLangData = {
+  label: string;
+  title: string;
+  emailLabel: string;
+  phoneLabel: string;
+  addressLabel: string;
+  form: { name: string; email: string; message: string; send: string };
+};
+
+export type ContactSharedData = {
+  email: string;
+  phone: string;
+  address: string;
+};
+
+export type ContactContent = Record<Lang, ContactLangData> & { shared: ContactSharedData };

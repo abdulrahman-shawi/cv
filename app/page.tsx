@@ -1,6 +1,8 @@
 import {
   getAboutContent,
+  getBlogContent,
   getCertificatesContent,
+  getContactContent,
   getHomeContent,
   getMarqueeContent,
   getPortfolioContent,
@@ -12,15 +14,18 @@ import { HomePage } from "@/components/site";
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const [home, about, services, portfolio, marquee, resume, certificates] = await Promise.all([
-    getHomeContent(),
-    getAboutContent(),
-    getServicesContent(),
-    getPortfolioContent(),
-    getMarqueeContent(),
-    getResumeContent(),
-    getCertificatesContent(),
-  ]);
+  const [home, about, services, portfolio, marquee, resume, certificates, blog, contact] =
+    await Promise.all([
+      getHomeContent(),
+      getAboutContent(),
+      getServicesContent(),
+      getPortfolioContent(),
+      getMarqueeContent(),
+      getResumeContent(),
+      getCertificatesContent(),
+      getBlogContent(),
+      getContactContent(),
+    ]);
   return (
     <HomePage
       home={home}
@@ -30,6 +35,8 @@ export default async function Page() {
       marquee={marquee}
       resume={resume}
       certificates={certificates}
+      blog={blog}
+      contact={contact}
     />
   );
 }

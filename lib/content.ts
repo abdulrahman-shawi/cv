@@ -3,8 +3,12 @@ import { dict, type Lang } from "./i18n";
 import type {
   AboutContent,
   AboutLangData,
+  BlogContent,
+  BlogLangData,
   CertificatesContent,
   CertificatesLangData,
+  ContactContent,
+  ContactLangData,
   HomeContent,
   HomeLangData,
   HomeSharedData,
@@ -22,9 +26,15 @@ export type {
   AboutContent,
   AboutLangData,
   AboutSkill,
+  BlogContent,
+  BlogLangData,
+  BlogPost,
   CertificateItem,
   CertificatesContent,
   CertificatesLangData,
+  ContactContent,
+  ContactLangData,
+  ContactSharedData,
   HomeContent,
   HomeLangData,
   HomeSharedData,
@@ -226,4 +236,54 @@ export function defaultCertificatesContent(): CertificatesContent {
 
 export function getCertificatesContent(): Promise<CertificatesContent> {
   return readSection("certificates", defaultCertificatesContent());
+}
+
+/* ---------- Blog ---------- */
+
+function defaultBlogLangData(lang: Lang): BlogLangData {
+  const d = dict[lang];
+  return {
+    label: d.blog.label,
+    title: d.blog.title,
+    readMore: d.blog.readMore,
+    posts: d.blog.posts.map((p) => ({ ...p })),
+  };
+}
+
+export function defaultBlogContent(): BlogContent {
+  return { ar: defaultBlogLangData("ar"), de: defaultBlogLangData("de") };
+}
+
+export function getBlogContent(): Promise<BlogContent> {
+  return readSection("blog", defaultBlogContent());
+}
+
+/* ---------- Contact ---------- */
+
+function defaultContactLangData(lang: Lang): ContactLangData {
+  const d = dict[lang];
+  return {
+    label: d.contact.label,
+    title: d.contact.title,
+    emailLabel: d.contact.emailLabel,
+    phoneLabel: d.contact.phoneLabel,
+    addressLabel: d.contact.addressLabel,
+    form: { ...d.contact.form },
+  };
+}
+
+export function defaultContactContent(): ContactContent {
+  return {
+    ar: defaultContactLangData("ar"),
+    de: defaultContactLangData("de"),
+    shared: {
+      email: dict.ar.contact.email,
+      phone: dict.ar.contact.phone,
+      address: dict.ar.contact.address,
+    },
+  };
+}
+
+export function getContactContent(): Promise<ContactContent> {
+  return readSection("contact", defaultContactContent());
 }

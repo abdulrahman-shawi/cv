@@ -11,6 +11,8 @@ const navItems = [
   { href: "/admin/marquee", label: "الكلمات المتحركة" },
   { href: "/admin/resume", label: "مسيرتي" },
   { href: "/admin/certificates", label: "شهاداتي" },
+  { href: "/admin/blog", label: "المقالات" },
+  { href: "/admin/contact", label: "تواصل معي" },
 ];
 
 async function logout() {

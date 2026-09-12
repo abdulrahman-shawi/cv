@@ -8,8 +8,8 @@ const sections = [
   { key: "marquee", label: "الكلمات المتحركة", description: "الشريط المتحرك بين الأقسام", href: "/admin/marquee", ready: true },
   { key: "resume", label: "السيرة الذاتية", description: "الخبرات العملية والتعليم", href: "/admin/resume", ready: true },
   { key: "certificates", label: "شهاداتي", description: "بطاقات الشهادات وصورها", href: "/admin/certificates", ready: true },
-  { key: "blog", label: "المقالات", description: "منشورات المدونة", href: "#", ready: false },
-  { key: "contact", label: "تواصل معي", description: "بيانات التواصل", href: "#", ready: false },
+  { key: "blog", label: "المقالات", description: "منشورات المدونة", href: "/admin/blog", ready: true },
+  { key: "contact", label: "تواصل معي", description: "بيانات التواصل ونصوص النموذج", href: "/admin/contact", ready: true },
 ];
 
 export default function AdminPage() {
