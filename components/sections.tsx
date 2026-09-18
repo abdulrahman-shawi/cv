@@ -166,6 +166,14 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
             >
               {t.hero.servicesBtn}
             </a>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="rounded-full border border-accent/50 bg-accent/10 px-7 py-3 font-semibold text-accent transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              aria-label={t.hero.downloadPdf}
+            >
+              {t.hero.downloadPdf}
+            </button>
           </div>
 
           <div className="flex items-center gap-3">

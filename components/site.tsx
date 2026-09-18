@@ -52,6 +52,7 @@ function buildOverrides(
         description: h.description,
         contactBtn: h.contactBtn,
         servicesBtn: h.servicesBtn,
+        downloadPdf: h.downloadPdf,
         scroll: h.scroll,
       },
       stats: h.stats,

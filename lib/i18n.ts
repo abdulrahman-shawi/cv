@@ -27,6 +27,7 @@ const ar = {
       "أساعد العلامات التجارية على النمو من خلال استراتيجيات تسويقية مدروسة تقوم على البيانات، وأحوّل الأفكار إلى حملات تحقق نتائج ملموسة.",
     contactBtn: "تواصل معي",
     servicesBtn: "استكشف خدماتي",
+    downloadPdf: "تحميل PDF",
     scroll: "مرّر للأسفل",
   },
   stats: [
@@ -258,6 +259,7 @@ const de: Dict = {
       "Ich helfe Marken zu wachsen – mit datenbasierten Marketingstrategien, die aus Ideen Kampagnen mit messbaren Ergebnissen machen.",
     contactBtn: "Kontakt aufnehmen",
     servicesBtn: "Meine Leistungen",
+    downloadPdf: "PDF herunterladen",
     scroll: "Nach unten scrollen",
   },
   stats: [

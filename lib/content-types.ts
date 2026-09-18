@@ -12,6 +12,7 @@ export type HomeLangData = {
   description: string;
   contactBtn: string;
   servicesBtn: string;
+  downloadPdf: string;
   scroll: string;
   stats: HomeStat[];
 };

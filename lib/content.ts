@@ -111,6 +111,7 @@ function defaultHomeLangData(lang: Lang): HomeLangData {
     description: d.hero.description,
     contactBtn: d.hero.contactBtn,
     servicesBtn: d.hero.servicesBtn,
+    downloadPdf: d.hero.downloadPdf,
     scroll: d.hero.scroll,
     stats: d.stats.map((s) => ({ ...s })),
   };

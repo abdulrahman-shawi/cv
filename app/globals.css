@@ -95,3 +95,43 @@ html {
     background-attachment: scroll;
   }
 }
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #111827 !important;
+  }
+
+  header,
+  nav,
+  footer,
+  button,
+  a[href^="#"],
+  .hidden-print,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    display: block !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+
+  #home {
+    min-height: auto !important;
+    padding-top: 0 !important;
+    background: none !important;
+  }
+
+  #home > div {
+    max-width: 100% !important;
+  }
+
+  .parallax-bg {
+    background-attachment: scroll !important;
+    background-image: none !important;
+  }
+}
