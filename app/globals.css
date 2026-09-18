@@ -98,8 +98,8 @@ html {
 
 @media print {
   body {
-    background: #fff !important;
-    color: #111827 !important;
+    background: var(--background) !important;
+    color: var(--foreground) !important;
   }
 
   header,
@@ -118,12 +118,13 @@ html {
 
   section {
     break-inside: avoid;
+    background: transparent !important;
   }
 
   #home {
     min-height: auto !important;
     padding-top: 0 !important;
-    background: none !important;
+    background: transparent !important;
   }
 
   #home > div {
@@ -132,6 +133,7 @@ html {
 
   .parallax-bg {
     background-attachment: scroll !important;
-    background-image: none !important;
+    background-size: cover !important;
+    background-position: center !important;
   }
 }
