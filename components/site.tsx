@@ -94,7 +94,6 @@ function Site({ shared }: { shared: HomeSharedData }) {
       <Header />
       <main>
         <Hero shared={shared} />
-        <Stats items={t.stats} />
         <About />
         <Services />
         <Portfolio />

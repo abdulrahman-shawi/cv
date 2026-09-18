@@ -28,7 +28,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-night/90 shadow-lg shadow-black/30 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "bg-[#0b0b0d]/90 shadow-lg shadow-black/30 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -52,14 +52,14 @@ export function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggle}
-            className="rounded-full border border-white/15 px-4 py-1.5 text-sm font-semibold text-zinc-200 transition-colors hover:border-accent hover:text-accent"
+            className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold text-zinc-200 transition-colors hover:border-accent hover:text-accent"
             aria-label="Switch language"
           >
             {lang === "ar" ? "DE" : "عربي"}
           </button>
           <button
             onClick={() => setOpen(!open)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white lg:hidden"
             aria-label="Menu"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
