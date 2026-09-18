@@ -133,38 +133,37 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[#101216] pt-16"
+      className="parallax-bg relative flex min-h-screen items-center overflow-hidden pt-16"
       style={{
-        backgroundImage: `linear-gradient(rgba(11,11,16,0.72), rgba(11,11,16,0.9)), url(${shared?.backgroundImage ?? DEFAULT_HERO_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `linear-gradient(rgba(11,11,16,0.82), rgba(11,11,16,0.88)), url(${shared?.backgroundImage ?? DEFAULT_HERO_BG})`,
       }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,117,71,0.18),transparent_25%),radial-gradient(circle_at_80%_20%,rgba(255,117,71,0.10),transparent_20%)]" />
+      <div className="pointer-events-none absolute -top-32 start-1/4 h-96 w-96 rounded-full bg-accent/20 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 end-0 h-80 w-80 rounded-full bg-accent-soft/15 blur-[100px]" />
 
-      <div className="relative mx-auto grid min-h-[820px] w-full max-w-6xl items-center gap-10 px-4 pb-28 pt-14 sm:px-6 lg:grid-cols-[1.18fr_0.82fr]">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="max-w-[650px]">
-          <div className="mb-5 flex items-center gap-3 text-sm font-medium text-zinc-200">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
-            <span>{t.hero.greeting}</span>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium tracking-[0.2em] text-zinc-200 uppercase backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-accent" />
+            {t.hero.greeting}
           </div>
 
-          <h1 className="mb-4 text-5xl font-extrabold leading-[0.95] text-white sm:text-6xl lg:text-[5.2rem]">
+          <h1 className="mb-4 text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-[5rem]">
             {t.hero.name}
           </h1>
 
-          <div className="mb-6 flex h-12 items-center gap-3 text-2xl font-bold text-zinc-200 sm:text-[2.15rem]">
+          <div className="mb-6 flex h-12 items-center gap-3 text-2xl font-bold text-zinc-200 sm:text-3xl">
             <span>{t.hero.iam}</span>
             <TypingText words={t.hero.roles} className="text-accent" />
           </div>
 
           <p className="mb-8 max-w-xl text-lg leading-relaxed text-zinc-300">{t.hero.description}</p>
 
-          <div className="mb-10 flex flex-wrap items-center gap-4">
+          <div className="mb-8 flex flex-wrap items-center gap-4">
             <button
               type="button"
               onClick={() => window.print()}
-              className="rounded-full bg-accent px-7 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(255,121,72,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ff7c52]"
+              className="rounded-full bg-accent px-7 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(255,105,56,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ff7c52]"
               aria-label={t.hero.downloadPdf}
             >
               {t.hero.downloadPdf}
@@ -174,6 +173,12 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
               className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-semibold text-white transition-colors hover:border-accent hover:text-accent"
             >
               {t.hero.contactBtn}
+            </a>
+            <a
+              href="#services"
+              className="rounded-full border border-white/20 bg-transparent px-7 py-3 font-semibold text-white transition-colors hover:border-accent hover:text-accent"
+            >
+              {t.hero.servicesBtn}
             </a>
           </div>
 
@@ -193,11 +198,15 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
           </div>
         </div>
 
-        <div className="relative mx-auto hidden w-full max-w-[440px] lg:block">
+        <div className="relative mx-auto hidden aspect-square w-full max-w-[440px] lg:block">
           <div className="absolute inset-0 rounded-full border-[3px] border-dashed border-[#ff744a]/80" />
-          <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-[#2c3038] to-[#121519] ring-1 ring-white/10 shadow-[0_0_60px_rgba(255,115,53,0.2)]">
+          <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-[#2b2d34] to-[#101216] ring-1 ring-white/10 shadow-[0_0_60px_rgba(255,115,53,0.18)]">
             {shared?.profileImage ? (
-              <img src={shared.profileImage} alt={t.hero.name} className="h-full w-full object-cover" />
+              <img
+                src={shared.profileImage}
+                alt={t.hero.name}
+                className="h-full w-full object-cover"
+              />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950">
                 <span className="bg-gradient-to-br from-accent to-accent-soft bg-clip-text text-[9rem] font-extrabold leading-none text-transparent">
@@ -206,13 +215,13 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
               </div>
             )}
           </div>
-          <div className="absolute -end-2 top-12 rounded-2xl border border-white/10 bg-[#1b1d22]/90 px-5 py-3 shadow-xl backdrop-blur">
+          <div className="absolute -end-2 top-10 rounded-2xl border border-white/10 bg-[#1a1b21]/90 px-5 py-3 shadow-xl backdrop-blur">
             <p className="text-3xl font-extrabold text-accent">
               <Counter to={8} suffix="+" />
             </p>
             <p className="text-xs text-zinc-400">{t.stats[0].label}</p>
           </div>
-          <div className="absolute -start-2 bottom-10 rounded-2xl border border-white/10 bg-[#1b1d22]/90 px-5 py-3 shadow-xl backdrop-blur">
+          <div className="absolute -start-2 bottom-10 rounded-2xl border border-white/10 bg-[#1a1b21]/90 px-5 py-3 shadow-xl backdrop-blur">
             <p className="text-3xl font-extrabold text-accent">
               <Counter to={150} suffix="+" />
             </p>
@@ -221,7 +230,7 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
         </div>
       </div>
 
-      <div className="relative border-t border-white/5 bg-[#0b0d12]/90">
+      <div className="absolute inset-x-0 bottom-0 border-t border-white/5 bg-[#0c0d11]/90">
         <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-white/5 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 rtl:sm:divide-x-reverse">
           {t.stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1 py-7 text-center">
