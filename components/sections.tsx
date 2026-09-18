@@ -141,45 +141,44 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
       <div className="pointer-events-none absolute -top-32 start-1/4 h-96 w-96 rounded-full bg-accent/20 blur-[120px]" />
       <div className="pointer-events-none absolute bottom-0 end-0 h-80 w-80 rounded-full bg-accent-soft/15 blur-[100px]" />
 
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="max-w-[650px]">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium tracking-[0.2em] text-zinc-200 uppercase backdrop-blur-sm">
-            <span className="h-2 w-2 rounded-full bg-accent" />
-            {t.hero.greeting}
-          </div>
-
-          <h1 className="mb-4 text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-[5rem]">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.2fr_1fr]">
+        <div>
+          <p className="mb-4 text-lg font-medium text-accent">{t.hero.greeting}</p>
+          <h1 className="mb-4 text-5xl font-extrabold leading-tight text-white sm:text-6xl lg:text-7xl">
             {t.hero.name}
           </h1>
-
-          <div className="mb-6 flex h-12 items-center gap-3 text-2xl font-bold text-zinc-200 sm:text-3xl">
+          <div className="mb-6 flex h-10 items-center gap-3 text-2xl font-bold text-zinc-200 sm:text-3xl">
             <span>{t.hero.iam}</span>
             <TypingText words={t.hero.roles} className="text-accent" />
           </div>
+          <p className="mb-8 max-w-xl leading-relaxed text-zinc-400">{t.hero.description}</p>
 
-          <p className="mb-8 max-w-xl text-lg leading-relaxed text-zinc-300">{t.hero.description}</p>
-
-          <div className="mb-8 flex flex-wrap items-center gap-4">
-            <button
-              type="button"
-              onClick={() => window.print()}
-              className="rounded-full bg-accent px-7 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(255,105,56,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ff7c52]"
-              aria-label={t.hero.downloadPdf}
-            >
-              {t.hero.downloadPdf}
-            </button>
+          <div className="mb-10 flex flex-wrap items-center gap-4">
             <a
               href="#contact"
-              className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-semibold text-white transition-colors hover:border-accent hover:text-accent"
+              className="rounded-full bg-accent px-7 py-3 font-semibold text-white shadow-lg shadow-accent/30 transition-transform hover:scale-105 hover:bg-accent-soft"
             >
               {t.hero.contactBtn}
             </a>
             <a
               href="#services"
-              className="rounded-full border border-white/20 bg-transparent px-7 py-3 font-semibold text-white transition-colors hover:border-accent hover:text-accent"
+              className="rounded-full border border-white/20 px-7 py-3 font-semibold text-white transition-colors hover:border-accent hover:text-accent"
             >
               {t.hero.servicesBtn}
             </a>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0d0d12]/80 px-6 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-white"
+              aria-label={t.hero.downloadPdf}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+                <path d="M12 3v10" />
+                <path d="M8.5 19.5l3.5 3.5 3.5-3.5" />
+                <path d="M4 14.5V18a2 2 0 002 2h12a2 2 0 002-2v-3.5" />
+              </svg>
+              {t.hero.downloadPdf}
+            </button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -190,7 +189,7 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.name}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-zinc-300 transition-all hover:border-accent hover:bg-accent hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-zinc-300 transition-all hover:border-accent hover:bg-accent hover:text-white"
               >
                 {s.svg}
               </a>
@@ -198,9 +197,9 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
           </div>
         </div>
 
-        <div className="relative mx-auto hidden aspect-square w-full max-w-[440px] lg:block">
-          <div className="absolute inset-0 rounded-full border-[3px] border-dashed border-[#ff744a]/80" />
-          <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-[#2b2d34] to-[#101216] ring-1 ring-white/10 shadow-[0_0_60px_rgba(255,115,53,0.18)]">
+        <div className="relative mx-auto hidden aspect-square w-full max-w-md lg:block">
+          <div className="absolute inset-0 rounded-full border-2 border-dashed border-accent/40" />
+          <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-card to-night ring-1 ring-white/10">
             {shared?.profileImage ? (
               <img
                 src={shared.profileImage}
@@ -208,21 +207,21 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950">
-                <span className="bg-gradient-to-br from-accent to-accent-soft bg-clip-text text-[9rem] font-extrabold leading-none text-transparent">
+              <div className="flex h-full w-full items-center justify-center">
+                <span className="bg-gradient-to-br from-accent to-accent-soft bg-clip-text text-[10rem] font-extrabold leading-none text-transparent">
                   {t.hero.name.charAt(0)}
                 </span>
               </div>
             )}
           </div>
-          <div className="absolute -end-2 top-10 rounded-2xl border border-white/10 bg-[#1a1b21]/90 px-5 py-3 shadow-xl backdrop-blur">
-            <p className="text-3xl font-extrabold text-accent">
+          <div className="absolute -end-2 top-10 rounded-2xl border border-white/10 bg-card/90 px-5 py-3 shadow-xl backdrop-blur">
+            <p className="text-2xl font-extrabold text-accent">
               <Counter to={8} suffix="+" />
             </p>
             <p className="text-xs text-zinc-400">{t.stats[0].label}</p>
           </div>
-          <div className="absolute -start-2 bottom-10 rounded-2xl border border-white/10 bg-[#1a1b21]/90 px-5 py-3 shadow-xl backdrop-blur">
-            <p className="text-3xl font-extrabold text-accent">
+          <div className="absolute -start-2 bottom-10 rounded-2xl border border-white/10 bg-card/90 px-5 py-3 shadow-xl backdrop-blur">
+            <p className="text-2xl font-extrabold text-accent">
               <Counter to={150} suffix="+" />
             </p>
             <p className="text-xs text-zinc-400">{t.stats[2].label}</p>
@@ -230,22 +229,9 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 border-t border-white/5 bg-[#0c0d11]/90">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-white/5 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 rtl:sm:divide-x-reverse">
-          {t.stats.map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-1 py-7 text-center">
-              <span className="text-5xl font-extrabold text-accent">
-                <Counter to={s.value} suffix={s.suffix} />
-              </span>
-              <span className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-400">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <a
         href="#about"
-        className="absolute bottom-28 left-1/2 hidden -translate-x-1/2 text-xs text-zinc-500 transition-colors hover:text-accent sm:block"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-xs text-zinc-500 transition-colors hover:text-accent sm:block"
       >
         {t.hero.scroll}
         <span className="mx-auto mt-2 block h-8 w-px animate-pulse bg-gradient-to-b from-accent to-transparent" />
