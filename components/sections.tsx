@@ -133,8 +133,11 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
   const socialLinks = mergedSocials(shared?.socials);
 
   const downloadPdf = async () => {
-    const element = document.getElementById("home");
+    const element = document.querySelector("main") ?? document.body;
     if (!element) return;
+
+    const previousScroll = window.scrollY;
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 
     const canvas = await html2canvas(element, {
       scale: 2,
@@ -142,9 +145,10 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
       backgroundColor: "#0b0b10",
       scrollX: 0,
       scrollY: 0,
+      width: element.scrollWidth,
+      height: element.scrollHeight,
     });
 
-    const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "pt",
@@ -153,23 +157,44 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
 
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pageCanvasHeight = (pageHeight * canvas.width) / pageWidth;
 
-    let position = 0;
-    let heightLeft = imgHeight;
+    let offsetY = 0;
+    let pageIndex = 0;
 
-    while (heightLeft > 0) {
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight, undefined, "FAST");
-      heightLeft -= pageHeight;
-      position -= pageHeight;
+    while (offsetY < canvas.height) {
+      const remaining = canvas.height - offsetY;
+      const sliceHeight = Math.min(pageCanvasHeight, remaining);
+      const sliceCanvas = document.createElement("canvas");
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = Math.ceil(sliceHeight);
 
-      if (heightLeft > 0) {
-        pdf.addPage();
-      }
+      const ctx = sliceCanvas.getContext("2d");
+      if (!ctx) continue;
+
+      ctx.drawImage(
+        canvas,
+        0,
+        offsetY,
+        canvas.width,
+        sliceHeight,
+        0,
+        0,
+        canvas.width,
+        sliceHeight
+      );
+
+      if (pageIndex > 0) pdf.addPage();
+      const sliceData = sliceCanvas.toDataURL("image/png");
+      const sliceImgHeight = (sliceCanvas.height * pageWidth) / sliceCanvas.width;
+      pdf.addImage(sliceData, "PNG", 0, 0, pageWidth, sliceImgHeight, undefined, "FAST");
+
+      offsetY += sliceHeight;
+      pageIndex += 1;
     }
 
     pdf.save("cv-page.pdf");
+    window.scrollTo({ top: previousScroll, behavior: "auto" });
   };
 
   return (
