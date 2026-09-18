@@ -169,9 +169,14 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
             <button
               type="button"
               onClick={() => window.print()}
-              className="rounded-full border border-accent/50 bg-accent/10 px-7 py-3 font-semibold text-accent transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0d0d12]/80 px-6 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-white"
               aria-label={t.hero.downloadPdf}
             >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+                <path d="M12 3v10" />
+                <path d="M8.5 19.5l3.5 3.5 3.5-3.5" />
+                <path d="M4 14.5V18a2 2 0 002 2h12a2 2 0 002-2v-3.5" />
+              </svg>
               {t.hero.downloadPdf}
             </button>
           </div>
