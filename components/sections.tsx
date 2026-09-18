@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { Counter, SkillBar, TypingText, useInView } from "./effects";
 import { useLang } from "./lang";
 import type { HomeSharedData, SocialLink } from "@/lib/content-types";
@@ -130,6 +132,46 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
   const { t } = useLang();
   const socialLinks = mergedSocials(shared?.socials);
 
+  const downloadPdf = async () => {
+    const element = document.getElementById("home");
+    if (!element) return;
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#0b0b10",
+      scrollX: 0,
+      scrollY: 0,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "a4",
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let position = 0;
+    let heightLeft = imgHeight;
+
+    while (heightLeft > 0) {
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+      heightLeft -= pageHeight;
+      position -= pageHeight;
+
+      if (heightLeft > 0) {
+        pdf.addPage();
+      }
+    }
+
+    pdf.save("cv-page.pdf");
+  };
+
   return (
     <section
       id="home"
@@ -168,7 +210,7 @@ export function Hero({ shared }: { shared?: HomeSharedData }) {
             </a>
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={downloadPdf}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0d0d12]/80 px-6 py-3 font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-white"
               aria-label={t.hero.downloadPdf}
             >
